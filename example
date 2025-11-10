@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>再造新城：氣候變遷下「半都市地帶」的空權治理與價值協商</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c5f7d;
+            --secondary-color: #4a9d8f;
+            --accent-color: #e8a87c;
+            --dark-bg: #1a3a4a;
+            --light-bg: #f5f7fa;
+            --text-dark: #2d3748;
+            --text-light: #718096;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+            line-height: 1.8;
+            color: var(--text-dark);
+            background: var(--light-bg);
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--primary-color) 100%);
+            color: white;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--primary-color) 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.05)" d="M0,96L48,112C96,128,192,160,288,165.3C384,171,480,149,576,133.3C672,117,768,107,864,122.7C960,139,1056,181,1152,181.3C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        /* Announcement Banner */
+        .announcement {
+            background: linear-gradient(135deg, var(--accent-color) 0%, #d4956b 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(232, 168, 124, 0.3);
+        }
+
+        .announcement::before {
+            content: '📢 ';
+            font-size: 1.5rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Section Styles */
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* SDG Badge */
+        .sdg-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #56c02b 0%, #00a63f 100%);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            margin: 1rem 0;
+            box-shadow: 0 4px 15px rgba(86, 192, 43, 0.3);
+        }
+
+        /* Research Questions */
+        .research-question {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid var(--secondary-color);
+            margin: 1.5rem 0;
+            line-height: 2;
+        }
+
+        /* Location Cards */
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .location-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .location-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.15);
+        }
+
+        .location-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .location-header h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .location-map {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--primary-color);
+        }
+
+        .location-content {
+            padding: 2rem;
+        }
+
+        .location-content h4 {
+            color: var(--primary-color);
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .location-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .location-content li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .location-content li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        /* Methodology Cards */
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .method-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border-top: 4px solid var(--secondary-color);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .method-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        .method-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .method-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Team Section */
+        .team-lead {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(44, 95, 125, 0.3);
+        }
+
+        .team-lead h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-lead p {
+            font-size: 1.1rem;
+            margin: 0.5rem 0;
+            opacity: 0.95;
+        }
+
+        .publications-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.8rem 2rem;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .publications-link:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        .member-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content p {
+            margin: 0.5rem 0;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1rem;
+            }
+
+            .location-grid,
+            .method-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 2rem 1.5rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Scroll Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            z-index: 999;
+            transition: width 0.1s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <header>
+        <nav>
+            <div class="logo">🏙️ 再造新城研究計畫</div>
+            <ul class="nav-links">
+                <li><a href="#home">首頁</a></li>
+                <li><a href="#research">研究介紹</a></li>
+                <li><a href="#locations">研究地點</a></li>
+                <li><a href="#methodology">研究方法</a></li>
+                <li><a href="#team">研究團隊</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>再造新城：氣候變遷下<br>「半都市地帶」的空權治理與價值協商</h1>
+            <p class="subtitle">國立政治大學創新國際學院 × 國家科學及技術委員會研究計畫</p>
+        </div>
+    </section>
+
+    <div class="announcement">
+        受訪者招募中！誠摯邀請林口、橋頭地區居民參與訪談，共同探討新市鎮發展與永續轉型議題
+    </div>
+
+    <div class="container">
+        <!-- 研究介紹 -->
+        <section class="section fade-in" id="research">
+            <h2 class="section-title">研究介紹</h2>
+            
+            <h3 class="section-subtitle">研究主旨</h3>
+            <p>我們是國立政治大學創新國際學院之國家科學及技術委員會研究計畫《再造新城：氣候變遷下「半都市地帶」的空權治理與價值協商》研究團隊。本研究聚焦於東亞半都市化地帶的新市鎮，以臺灣林口、橋頭為主要案例，並輔以韓國龍仁、日本熊本進行跨區域比較。我們將探討在新一波科技產能與軌道擴張計畫驅動下，這些地區的願景想像、空權治理模式與價值協商如何共同形塑其都市化轉型。</p>
+            
+            <p style="margin-top: 1.5rem;">本研究計畫主要將結合半都市化地帶研究、價值化研究及永續發展模式，構建分析空權治理中之價值協商的跨學科框架，以空氣的多重物質樣態如容積、碳排放與呼吸權為切入點，解析氣候變遷下都市化過程的價值動態協商，回應全球「衛星都市化」的理論對話。</p>
+
+            <h3 class="section-subtitle">研究的SDG價值</h3>
+            <div class="sdg-badge">🎯 SDG 11：永續城市與社區</div>
+            <p>本研究的核心問題是正視快速都市化作為氣候變遷政策盲點，尤其是東亞在新一波科技、軌道造鎮過程中面臨的淨零轉型挑戰，以呼應永續發展目標 11 之細項 11.a「透過加強國家和區域發展規劃，促進城市、郊區與農村地區之間，經濟、社會和環境的正向連結」。</p>
+
+            <h3 class="section-subtitle">臺灣都市發展面臨的挑戰</h3>
+            <p>在臺灣，近二十年來的都市與區域政策，甚至包括 2050 年淨零排放的「十二項關鍵戰略」，均尚未對快速都市化現象提出結構性地減排策略。政府的氣候行動多聚焦於「綠色消費」（如綠建材應用）或大眾運輸系統的擴張，卻忽略了快速都市化─尤其是水平與垂直都市擴張─對碳排放的根本影響。</p>
+            
+            <p style="margin-top: 1rem;">從都市建築到造鎮與交通建設，這些政策皆以「擴張」與「成長」為前提，但對其背後的碳排放機制缺乏實質檢討。都市化政策作為臺灣氣候行動裡被忽略的「房間裡的大象」，亟待系統性地檢視、反映於既有都市化政策工具的改革上（陳虹穎, 2023）。</p>
+
+            <h3 class="section-subtitle">核心研究問題</h3>
+            <div class="research-question">
+                <p><strong>本研究提出下列發問：</strong></p>
+                <p>當前臺灣新一波由交通基礎建設、科技產業擴張競爭、房貸資金收放之下，共構的新市鎮空間生產邏輯與過程，如何銜接上淨零都市轉型？空權治理對於造鎮過程、居住經驗有何影響？在什麼介面、物質基礎上發生交集？不同行動者如何理解都市氣候與量體治理的關係？</p>
+                <p style="margin-top: 1rem;">透過探索政府機構、環境行動者、不動產開發業者與新城鎮住民們如何評估、投資、參與形塑這些半都市地帶，幫助我們看見容積管理、空氣品質與碳排管制之治理，如何協商環境、經濟與社會等價值競逐。在此計畫中，筆者試圖聚焦於半都市化地帶的「邊界空間」（border/boundary space），探問這些空間界線的僭越、取消、交疊等動態過程，並理解市民社會在容積總量管制、碳排放管制與空氣品質管制過程中可能的角色。</p>
+            </div>
+        </section>
+
+        <!-- 研究地點 -->
+        <section class="section fade-in" id="locations">
+            <h2 class="section-title">研究地點（案例）</h2>
+            
+            <div class="location-grid">
+                <!-- 林口 -->
+                <div class="location-card">
+                    <div class="location-header">
+                        <h3>林口新市鎮</h3>
+                        <p>新北市林口區</p>
+                    </div>
+                    <div class="location-map">🗺️</div>
+                    <div class="location-content">
+                        <h4>📍 地理位置與發展</h4>
+                        <p>林口新市鎮位於新北市西北側，鄰近桃園國際機場，是臺灣第三個新市鎮開發案。自1970年代規劃至今，歷經多次開發階段，近年因機場捷運通車、A7站區開發及產業園區進駐，快速轉型為科技與物流產業聚集地，人口大幅成長。</p>
+                        
+                        <h4>🎯 選擇原因</h4>
+                        <ul>
+                            <li>典型的半都市化地帶，介於臺北都會區與桃園之間</li>
+                            <li>軌道建設（機場捷運）帶動的新一波都市化</li>
+                            <li>科技產業進駐改變地方發展型態</li>
+                            <li>容積管制與空氣品質議題顯著</li>
+                        </ul>
+                        
+                        <h4>📊 資料蒐集</h4>
+                        <ul>
+                            <li>都市計畫與容積管制檔案</li>
+                            <li>環境影響評估報告</li>
+                            <li>居民訪談與社區觀察</li>
+                            <li>空氣品質監測數據</li>
+                            <li>不動產開發與交易資料</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 橋頭 -->
+                <div class="location-card">
+                    <div class="location-header">
+                        <h3>橋頭新市鎮</h3>
+                        <p>高雄市橋頭區</p>
+                    </div>
+                    <div class="location-map">🗺️</div>
+                    <div class="location-content">
+                        <h4>📍 地理位置與發展</h4>
+                        <p>橋頭新市鎮位於高雄市北側，是臺灣第四個新市鎮開發案。自2000年代啟動開發，配合高雄捷運紅線延伸、臺鐵地下化及橋頭科學園區設立，成為南臺灣重要的產業與居住發展區域，呈現快速的半都市化特徵。</p>
+                        
+                        <h4>🎯 選擇原因</h4>
+                        <ul>
+                            <li>南臺灣代表性的新市鎮開發案例</li>
+                            <li>捷運與科學園區雙重驅動的都市化</li>
+                            <li>氣候變遷下的熱島效應明顯</li>
+                            <li>農地轉型與價值協商過程典型</li>
+                        </ul>
+                        
+                        <h4>📊 資料蒐集</h4>
+                        <ul>
+                            <li>新市鎮開發計畫文件</li>
+                            <li>科學園區環評與碳排資料</li>
+                            <li>地方政府與居民訪談</li>
+                            <li>土地使用變遷分析</li>
+                            <li>氣候與環境監測數據</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 研究方法 -->
+        <section class="section fade-in" id="methodology">
+            <h2 class="section-title">工具／研究方法</h2>
+            
+            <h3 class="section-subtitle">研究方法簡介</h3>
+            <p>本研究採用跨學科整合研究方法，結合質性與量化途徑，以全面理解半都市地帶的空權治理與價值協商過程。我們運用多元研究工具與資料來源，從不同尺度和視角探討新市鎮的都市化轉型與永續發展議題。</p>
+
+            <div class="method-grid">
+                <div class="method-card">
+                    <div class="method-icon">📋</div>
+                    <h3>深度訪談</h3>
+                    <p>針對政府官員、都市規劃師、環境行動者、不動產開發業者及當地居民進行半結構式訪談，探討不同利害關係人對空權治理的理解與價值判斷。</p>
+                </div>
+
+                <div class="method-card">
+                    <div class="method-icon">🔍</div>
+                    <h3>參與式觀察</h3>
+                    <p>長期駐點於研究場域，觀察日常生活實踐、社區互動、都市發展過程，以及環境變遷對居民生活的影響，記錄第一手的民族誌資料。</p>
+                </div>
+
+                <div class="method-card">
+                    <div class="method-icon">📊</div>
+                    <h3>空間資料分析</h3>
+                    <p>運用 GIS 地理資訊系統分析土地使用變遷、容積分布、交通網絡、綠地配置等空間數據，視覺化呈現都市化過程與環境變遷。</p>
+                </div>
+
+                <div class="method-card">
+                    <div class="method-icon">📈</div>
+                    <h3>環境數據分析</h3>
+                    <p>蒐集並分析空氣品質、碳排放、氣溫變化等環境監測數據，評估快速都市化對環境品質的影響，並與政策目標進行對比。</p>
+                </div>
+
+                <div class="method-card">
+                    <div class="method-icon">📄</div>
+                    <h3>政策文本分析</h3>
+                    <p>系統性檢視都市計畫、環境影響評估、氣候行動計畫等政策文件，分析空權治理的制度框架與價值協商機制。</p>
+                </div>
+
+                <div class="method-card">
+                    <div class="method-icon">🌏</div>
+                    <h3>跨區域比較</h3>
+                    <p>與韓國龍仁、日本熊本等東亞案例進行比較研究，探討不同文化與制度脈絡下的半都市化發展模式與永續轉型路徑。</p>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle" style="margin-top: 3rem;">採用的工具、模型與資料庫</h3>
+            <div class="method-grid">
+                <div class="method-card">
+                    <h3>🗺️ GIS 空間分析工具</h3>
+                    <p>QGIS、ArcGIS 進行空間資料處理與視覺化</p>
+                </div>
+
+                <div class="method-card">
+                    <h3>📐 都市模擬模型</h3>
+                    <p>容積率計算模型、碳排放估算工具</p>
+                </div>
+
+                <div class="method-card">
+                    <h3>💾 資料庫與開放資料</h3>
+                    <p>政府開放資料平台、環保署空氣品質監測網、內政部不動產交易實價登錄</p>
+                </div>
